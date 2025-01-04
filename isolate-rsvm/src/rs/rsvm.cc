@@ -3,6 +3,7 @@
 using namespace v8;
 
 namespace rs {
+  //int  RSWindow::release_num = 0;
     void NameGetter(Local<Name> property, const PropertyCallbackInfo<Value>& info) {
         Isolate* isolate = info.GetIsolate();
         Local<Context> context = isolate->GetCurrentContext();

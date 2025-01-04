@@ -2,17 +2,22 @@
 #define RS_RSVM_H_
 
 #include "rs/tool.h"
+#include <iostream>
 
 using namespace v8;
-
 namespace rs {
-
+  
     class RSWindow : public RSObjectWrap {
     public:
         RSWindow() = delete;
         RSWindow(Local<Object> target, Isolate* isolate) {
             RSObjectWrap::Wrap(target);
         }
+
+        //static int  release_num;
+        //~RSWindow() override {
+        //  std::cout << "Release:-> " << release_num++ << std::endl;
+        //}
     public:
         bool log = false;
         bool glog = false;

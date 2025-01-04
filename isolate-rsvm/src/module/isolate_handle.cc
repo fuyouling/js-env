@@ -131,7 +131,6 @@ struct CreateContextRunner : public ThreePhaseTask {
 	bool enable_inspector = false;
 	bool enable_rsvm = false;
 	bool enable_intercept = false;
-	std::unique_ptr<rs::RSWindow> window;
 	RemoteHandle<Context> context;
 	RemoteHandle<Value> global;
 
@@ -162,7 +161,7 @@ struct CreateContextRunner : public ThreePhaseTask {
 		// Make a new context and setup shared pointers
 		IsolateEnvironment::HeapCheck heap_check{env, true};
 		Local<Context> context_handle = env.NewContext(enable_rsvm, enable_intercept);
-		window = std::make_unique<rs::RSWindow>(context_handle->Global(), env);
+		new rs::RSWindow(context_handle->Global(), env);
 		if (enable_inspector) {
 			if (enable_rsvm) {
 				env.GetInspectorAgent()->ContextCreated(context_handle, "rs|vx:proxy0014");
@@ -178,7 +177,7 @@ struct CreateContextRunner : public ThreePhaseTask {
 
 	auto Phase3() -> Local<Value> final {
 		// Make a new Context{} JS class
-		return ClassHandle::NewInstance<ContextHandle>(std::move(context), std::move(global), std::move(window));
+		return ClassHandle::NewInstance<ContextHandle>(std::move(context), std::move(global));
 	}
 };
 template <int async>
