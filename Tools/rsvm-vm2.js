@@ -7,7 +7,7 @@ rsvm = {
             let msg = { '构造函数': target.name, '返回值': value };
             rsvm.$log.call(console, msg);
         },
-        action(target, property, args, value) {
+        operation(target, property, args, value) {
             let ary = [];
             for (var elem of args) {
                 if (null !== elem && "object" === typeof (elem)) {
@@ -16,7 +16,7 @@ rsvm = {
                     if (typeof (elem) === 'string') { ary.push(`"${elem}"`); } else { ary.push("" + elem); }
                 }
             }
-            let msg = { "调用者": target[Symbol.toStringTag], "操作": "Action", "属性": property, "参数": "(" + ary.join(', ') + ")", "参数值": args, "返回值": value, "值类型": typeof (target) };
+            let msg = { "调用者": target[Symbol.toStringTag], "操作": "Operation", "属性": property, "参数": "(" + ary.join(', ') + ")", "参数值": args, "返回值": value, "值类型": typeof (target) };
             rsvm.$log.call(console, msg);
         },
         windowGetter(target, property, value) {
