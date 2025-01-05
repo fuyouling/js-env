@@ -783,7 +783,7 @@ namespace rs {
 
         Local<Object> handle = info.Data().As<Object>();
         Local<Function> callback = handle->Get(context, v8_str("callback")).ToLocalChecked().As<Function>();
-        MaybeLocal<Value> maybe_result = callback->Call(context, info.This(), 0, nullptr).ToLocalChecked();
+        MaybeLocal<Value> maybe_result = callback->Call(context, info.This(), 0, nullptr);
         Local<Value> result;
         if (maybe_result.ToLocal(&result)) {
             info.GetReturnValue().Set(result);
@@ -823,7 +823,7 @@ namespace rs {
         Local<Object> handle = info.Data().As<Object>();
         Local<Function> callback = handle->Get(context, v8_str("callback")).ToLocalChecked().As<Function>();
         Local<Value> params[]{ info[0] };
-        MaybeLocal<Value> maybe_result = callback->Call(context, info.This(), 1, params).ToLocalChecked();
+        MaybeLocal<Value> maybe_result = callback->Call(context, info.This(), 1, params);
         Local<Value> result;
         if (maybe_result.ToLocal(&result)) {
             info.GetReturnValue().Set(result);
